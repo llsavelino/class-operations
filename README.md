@@ -1,4 +1,5 @@
-# Catálogo de Sobrecarga de Operadores em C++
+# _________ Catálogo de Sobrecarga de Operadores em C++ _________
+## aves06194@gmail.com
 
 Este documento serve como guia para os operadores que podem (e não podem) ser sobrecarregados em **C++**.
 
