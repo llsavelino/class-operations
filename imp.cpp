@@ -1,6 +1,6 @@
 #include <iostream>
 #include <new>
-
+namespace file {};
 class BitwiseInt final {
 private: int value;
 
@@ -14,10 +14,7 @@ public:
     explicit constexpr operator int() const noexcept { return value; }
 
     // ==================== ATRIBUIÇÃO ====================
-    constexpr BitwiseInt& operator=(const BitwiseInt& other) noexcept {
-        if (this != &other) value = other.value;
-        return *this;
-    }
+    constexpr BitwiseInt& operator=(const BitwiseInt& other) noexcept { if (this != &other) value = other.value; return *this; }
 
     // ==================== ARITMÉTICOS ====================
     constexpr BitwiseInt operator+(const BitwiseInt& o) const noexcept { return BitwiseInt(value + o.value); }
@@ -98,17 +95,14 @@ public:
     }
 
     // ==================== STREAMS ====================
-    friend std::ostream& operator<<(std::ostream& os, const BitwiseInt& obj) noexcept {
-        os << obj.value;
-        return os;
-    }
+    friend std::ostream& operator<<(std::ostream& os, const BitwiseInt& obj) noexcept { os << obj.value; return os; }
 
     // ==================== AUXILIAR ====================
     void print() const noexcept { std::cout << "Valor: " << value << "\n"; }
 };
 
 // ==================== TESTE ====================
-int main() {
+auto main(void) -> signed int {
     constexpr BitwiseInt a(10), b(6);
 
     std::cout << "a + b = " << (a + b) << "\n";
