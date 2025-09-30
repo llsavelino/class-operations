@@ -2,8 +2,7 @@
 #include <new>
 
 class BitwiseInt final {
-private:
-    int value;
+private: int value;
 
 public:
     // ==================== CONSTRUTORES ====================
