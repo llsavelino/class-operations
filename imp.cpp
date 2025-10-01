@@ -78,20 +78,22 @@ public:
 
     // ==================== ALOCAÇÃO ====================
     void* operator new(std::size_t sz) {
-        std::cout << "Custom new\n";
-        return ::operator new(sz);
+        std::cout << "Custom new\n"; return ::operator new(sz);
     }
     void operator delete(void* p) noexcept {
-        std::cout << "Custom delete\n";
-        ::operator delete(p);
+        std::cout << "Custom delete\n"; ::operator delete(p);
     }
     void* operator new[](std::size_t sz) {
         std::cout << "Custom new[]\n";
-        return ::operator new[](sz);
+        bool v = [=](const std::size_t& sz) { return (sz > 0) ? 1 : 0; }(sz);
+        return (v) ? ::operator new[](sz) : nullptr;
     }
     void operator delete[](void* p) noexcept {
         std::cout << "Custom delete[]\n";
-        ::operator delete[](p);
+        bool v = [=](void) { return (p != (void*)0x00) ? 1 : 0; }();
+        ::operator delete[](p); p = nullptr;
+        if ((void*)p == nullptr) std::cout << "ok\n";
+        else std::cout << "err\n";
     }
 
     // ==================== STREAMS ====================
@@ -108,7 +110,7 @@ auto main(void) -> signed int {
     std::cout << "a + b = " << (a + b) << "\n";
     std::cout << "a & b = " << (a & b) << "\n";
     std::cout << "~a = " << (~a) << "\n";
-    std::cout << "a[1] = " << a[1] << "\n";
+    std::cout << "a[1] = " << a[(false) ? 1 : 0] << "\n";
     std::cout << "a(3) = " << a(3) << "\n";
 
     BitwiseInt* arr = new BitwiseInt[2]{ BitwiseInt(5), BitwiseInt(7) };
