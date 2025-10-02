@@ -91,7 +91,7 @@ public:
     void operator delete[](void* p) noexcept {
         std::cout << "Custom delete[]\n";
         bool v = [=](void) { return (p != (void*)0x00) ? 1 : 0; }();
-        ::operator delete[](p); p = nullptr;
+        if(v) ::operator delete[](p); p = nullptr;
         if ((void*)p == nullptr) std::cout << "ok\n";
         else std::cout << "err\n";
     }
